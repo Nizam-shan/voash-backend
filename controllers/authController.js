@@ -37,7 +37,7 @@ const registrationJoiValidation = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
   last_name: Joi.string().allow(""),
-  profile_image: Joi.string(),
+  profile_image: Joi.string().allow(""),
   confirm_password: Joi.string().allow(""),
 });
 
