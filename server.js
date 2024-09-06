@@ -17,7 +17,12 @@ const app = express();
 app.use("/uploads", express.static(path.join(__dirname, "my-uploads")));
 
 app.use(json());
-app.use(cors());
+const corsOptions = {
+  origin: "*", // Your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"], // Allow specific HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
+};
+app.use(cors(corsOptions));
 
 app.use("/auth", authRoutes);
 app.use("/", crudRoutes);
