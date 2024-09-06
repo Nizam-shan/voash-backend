@@ -12,11 +12,11 @@ export const login = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return sendResponse(res, 401, null, "Invalid credentials");
+      return sendResponse(res, 401, null, "User not found!..");
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return sendResponse(res, 401, null, "Invalid credentials");
+      return sendResponse(res, 401, null, "Password doesnot match");
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -58,7 +58,8 @@ export const userRegistration = async (req, res) => {
         };
     }
 
-    const resumePath = req.file ? req.file.path : "";
+    // const resumePath = req.file ? req.file.path : "";
+    const resumePath = req.file ? `/uploads/${req.file.filename}` : "";
     const { first_name, email, password, profile_image, last_name } = req.body;
     const userExists = await User.findOne({ email });
 

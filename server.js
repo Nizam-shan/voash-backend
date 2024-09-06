@@ -5,6 +5,8 @@ import cors from "cors";
 import crudRoutes from "./routes/crudRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import multer from "multer";
+import path from "path";
+const __dirname = path.resolve();
 
 const upload = multer();
 
@@ -12,7 +14,7 @@ config();
 connectDB();
 
 const app = express();
-app.use("/uploads", express.static("my-uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "my-uploads")));
 
 app.use(json());
 app.use(cors());
